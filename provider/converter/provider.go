@@ -31,11 +31,12 @@ func (c ConvertedRates) MarshalXML(enc *xml.Encoder, startElem xml.StartElement)
 	tokens := []xml.Token{startElem}
 
 	for key, value := range c {
-		t := xml.StartElement{Name: xml.Name{"", key}}
-		tokens = append(tokens, t, xml.CharData(fmt.Sprintf("%v", value)), xml.EndElement{t.Name})
+		t := xml.StartElement{Name: xml.Name{Space: "", Local: key}}
+		tokens = append(tokens, t, xml.CharData(fmt.Sprintf("%v", value)),
+			xml.EndElement{Name: t.Name})
 	}
 
-	tokens = append(tokens, xml.EndElement{startElem.Name})
+	tokens = append(tokens, xml.EndElement{Name: startElem.Name})
 
 	for _, t := range tokens {
 		err := enc.EncodeToken(t)

@@ -39,7 +39,7 @@ func TestRound(t *testing.T) {
 		actual := Round(c.value, c.places)
 
 		if !equals(actual, c.expected) {
-			t.Errorf("Round(%f, %f) == \ngot: %f, \nexpected %f", c.value, c.places,
+			t.Errorf("Round(%f, %d) == \ngot: %f, \nexpected %f", c.value, c.places,
 				actual, c.expected)
 		}
 	}
