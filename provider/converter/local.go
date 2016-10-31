@@ -14,7 +14,6 @@ package converter
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/floreks/go-currency/common"
 	"log"
@@ -93,8 +92,7 @@ func (l LocalProvider) getBase(currency string) (*LocalBaseRates, error) {
 		baseJsonString = baseUSD
 	default:
 		log.Printf("Currency %s not supported by local provider.", currency)
-		return nil,
-			errors.New(fmt.Sprintf("Currency %s not supported by local provider.", currency))
+		return nil, fmt.Errorf("Currency %s not supported by local provider.", currency)
 	}
 
 	if err := json.Unmarshal([]byte(baseJsonString), &result); err != nil {
