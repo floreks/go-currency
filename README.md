@@ -66,10 +66,10 @@ curl "http://localhost:8080/convert?amount=200&currency=SEK"
 
 ### Offline provider
 
-Additionally if `Fixer.io` is offline we can fallback to local provider that uses exchange rates from `31.10.2016`.
+Additionally if `Fixer.io` is offline we can fallback to local provider that uses exchange rates from `31.10.2016`. It supports only 3 base currencies: `EUR`, `PLN`, `USD`.
 
 ```
-curl "http://localhost:8080/convert?amount=200&currency=SEK&provider=local"
+curl "http://localhost:8080/convert?amount=200&currency=PLN&provider=local"
 ```
 
 # Running tests
