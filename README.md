@@ -26,7 +26,10 @@ $ ./bin/go-currency --port <OPTIONAL_PORT>
 
 ### Docker
 
-Building own image
+Container can be stopped using `CTRL+C`.
+
+#### Building own image
+
 ```bash
 # Go to your $GOPATH
 $ cd $GOPATH
@@ -43,7 +46,11 @@ $ docker build -t go-currency .
 $ docker run -p 8080:8080 go-currency
 ```
 
-Container can be stopped using `CTRL+C`.
+#### DockerHub image
+
+```bash
+$ docker run -p 8080:8080 floreks/go-currency
+```
 
 # Usage
 
