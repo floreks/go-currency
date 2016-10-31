@@ -95,7 +95,7 @@ func (c ConverterService) parseConverterParameters(
 	amount, err := strconv.ParseFloat(amountParam, 64)
 	if err != nil || amount < 0.0 {
 		log.Printf("Provided amount is invalid or empty: '%s'.", amountParam)
-		return nil, errors.New(fmt.Sprintf("Provided amount is invalid or empty: '%s'.", amountParam))
+		return nil, fmt.Errorf("Provided amount is invalid or empty: '%s'.", amountParam)
 	}
 
 	currency := request.QueryParameter("currency")

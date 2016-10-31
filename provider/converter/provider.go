@@ -23,6 +23,7 @@ const (
 	Local   = "local"
 )
 
+// ConvertedRates converted rates that will be presented to the user.
 type ConvertedRates map[string]float64
 
 // MarshalXML - marshals convertedRates map into XML
@@ -51,21 +52,29 @@ func (c ConvertedRates) MarshalXML(enc *xml.Encoder, startElem xml.StartElement)
 	return nil
 }
 
+// ConverterResponse is a structure returned by converter providers.
 type ConverterResponse struct {
-	XMLName   xml.Name `json:"-" xml:"ConverterResponse"`
+	// XMLName needed for correct xml response
+	XMLName xml.Name `json:"-" xml:"ConverterResponse"`
 
-	Amount    float64 `json:"amount" xml:"amount"`
+	// Amount of money which is a base for exchange rate calculation
+	Amount float64 `json:"amount" xml:"amount"`
 
-	Currency  string `json:"currency" xml:"currency"`
+	// Currency for which we should calculate exchange rates
+	Currency string `json:"currency" xml:"currency"`
 
+	// Converted rates based on given amount and currency
 	Converted ConvertedRates `json:"converted" xml:"converted"`
 }
 
+// ConverterProvider is an abstract interface in order to allow providing multiple conversion
+// providers.
 type ConverterProvider interface {
 	Convert(float64, string) (*ConverterResponse, error)
 	Name() string
 }
 
+// GetProviders returns list of supported providers.
 func GetProviders() []ConverterProvider {
 	return []ConverterProvider{
 		NewFixerIOProvider(),

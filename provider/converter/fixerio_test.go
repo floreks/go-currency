@@ -55,7 +55,7 @@ func TestNewFixerIOProvider(t *testing.T) {
 	cases := []struct {
 		expected FixerIOProvider
 	}{
-		{FixerIOProvider{url: FixerIOApiUrl}},
+		{FixerIOProvider{url: fixerIOApiUrl}},
 	}
 
 	for _, c := range cases {

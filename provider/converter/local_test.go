@@ -59,10 +59,10 @@ func TestConvert(t *testing.T) {
 		expectedError error
 	}{
 		{
-			CURRENCY_PLN, 10,
+			currencyPLN, 10,
 			&ConverterResponse{
 				Amount:   10,
-				Currency: CURRENCY_PLN,
+				Currency: currencyPLN,
 				Converted: ConvertedRates{
 					"IDR": 32982, "JPY": 265.65, "ZAR": 34.31, "BRL": 8.05, "HRK": 17.35,
 					"MXN": 47.87, "MYR": 10.62, "NOK": 20.88, "USD": 2.53, "CNY": 17.14,

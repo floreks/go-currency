@@ -20,7 +20,8 @@ import (
 	"github.com/floreks/go-currency/common"
 )
 
-const FixerIOApiUrl = "http://api.fixer.io/latest?base=%s"
+// Points to a fixer.io api
+const fixerIOApiUrl = "http://api.fixer.io/latest?base=%s"
 
 // FixerAPIError is an error string returned by fixer api
 type FixerAPIError string
@@ -33,14 +34,15 @@ type FixerAPIResponse struct {
 	// Error - error string returned by fixer api
 	Error FixerAPIError `json:"error"`
 	// Base - base currency string returned by fixer api
-	Base  string        `json:"base"`
+	Base string `json:"base"`
 	// Date - date on which request for exchange rates was made
-	Date  string        `json:"date"`
+	Date string `json:"date"`
 	// Rates - current exchange rates returned by fixer api
 	Rates FixerAPIRates `json:"rates"`
 }
 
-// FixerIOProvider represents provider used to convert exchange rates based on Fixer.io service
+// FixerIOProvider represents provider used to convert exchange rates based on Fixer.io service.
+// Implements ConverterProvider interface.
 type FixerIOProvider struct {
 	url string
 }
@@ -91,5 +93,5 @@ func (f FixerIOProvider) convert(rates FixerAPIRates, amount float64) ConvertedR
 
 // NewFixerIOProvider returns initialized fixer io provider object
 func NewFixerIOProvider() FixerIOProvider {
-	return FixerIOProvider{url: FixerIOApiUrl}
+	return FixerIOProvider{url: fixerIOApiUrl}
 }
