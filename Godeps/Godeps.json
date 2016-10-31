@@ -1,0 +1,21 @@
+{
+	"ImportPath": "github.com/floreks/go-currency",
+	"GoVersion": "go1.7",
+	"GodepVersion": "v74",
+	"Deps": [
+		{
+			"ImportPath": "github.com/emicklei/go-restful",
+			"Comment": "v1.2-91-g3d66f88",
+			"Rev": "3d66f886316ac990eb502aaa89ea38546420b8b7"
+		},
+		{
+			"ImportPath": "github.com/emicklei/go-restful/log",
+			"Comment": "v1.2-91-g3d66f88",
+			"Rev": "3d66f886316ac990eb502aaa89ea38546420b8b7"
+		},
+		{
+			"ImportPath": "github.com/spf13/pflag",
+			"Rev": "5ccb023bc27df288a957c5e994cd44fd19619465"
+		}
+	]
+}
