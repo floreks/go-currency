@@ -89,7 +89,7 @@ func TestConvert(t *testing.T) {
 		}
 
 		if !reflect.DeepEqual(actual, c.expected) {
-			t.Errorf("LocalProvider.convert(%f, %s) == \ngot: %v, \nexpected: %v",
+			t.Errorf("LocalProvider.Convert(%f, %s) == \ngot: %v, \nexpected: %v",
 				c.amount, c.currency, actual, c.expected)
 		}
 	}
