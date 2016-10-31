@@ -48,6 +48,9 @@ $ docker run -p 8080:8080 go-currency
 
 #### DockerHub image
 
+Check it out on docker hub: [go-currency](https://hub.docker.com/r/floreks/go-currency/)
+
+In order to run it just type in your console:
 ```bash
 $ docker run -p 8080:8080 floreks/go-currency
 ```
