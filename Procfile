@@ -1,1 +1,1 @@
-web: go-currency
+web: go-currency --port=$PORT
