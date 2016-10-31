@@ -12,19 +12,35 @@
 
 package common
 
-import (
-	"encoding/json"
-	"net/http"
-)
+import "testing"
 
-// GetJson - makes HTTP get request to provided url and returns decoded target interface object
-func GetJson(url string, target interface{}) error {
-	r, err := http.Get(url)
-	if err != nil {
-		return err
+const EPSILON = 0.00000001
+
+func TestRound(t *testing.T) {
+	equals := func(a, b float64) bool {
+		if (a-b) < EPSILON && (b-a) < EPSILON {
+			return true
+		}
+		return false
 	}
 
-	defer r.Body.Close()
+	cases := []struct {
+		value    float64
+		places   int
+		expected float64
+	}{
+		{1.23456, 0, 1},
+		{1.23456, 1, 1.2},
+		{1.23456, 2, 1.23},
+		{1.23456, 3, 1.235},
+	}
 
-	return json.NewDecoder(r.Body).Decode(target)
+	for _, c := range cases {
+		actual := Round(c.value, c.places)
+
+		if !equals(actual, c.expected) {
+			t.Errorf("Round(%f, %f) == \ngot: %f, \nexpected %f", c.value, c.places,
+				actual, c.expected)
+		}
+	}
 }

@@ -24,6 +24,7 @@ import (
 	"github.com/floreks/go-currency/provider/converter"
 )
 
+// ConverterQuery represents request query parameters(required and optional) used for conversion.
 type ConverterQuery struct {
 	// Amount represents amount of money that should be converted to another currency.
 	Amount float64
@@ -55,6 +56,7 @@ func (c ConverterService) getDefaultProvider() converter.ConverterProvider {
 	return c.getProvider(converter.FixerIO)
 }
 
+// Handler registers endpoints and returns handler for converter service
 func (c ConverterService) Handler() *restful.WebService {
 	ws := new(restful.WebService)
 	ws.
@@ -114,6 +116,7 @@ func (c ConverterService) parseConverterParameters(
 	return &ConverterQuery{Amount: amount, Currency: currency, Provider: provider}, nil
 }
 
+// NewConverterService returns initialized ConverterService object
 func NewConverterService() ConverterService {
 	return ConverterService{providers: converter.GetProviders()}
 }

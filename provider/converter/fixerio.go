@@ -20,29 +20,39 @@ import (
 	"github.com/floreks/go-currency/common"
 )
 
-const apiUrl = "http://api.fixer.io/latest?base=%s"
+const FixerIOApiUrl = "http://api.fixer.io/latest?base=%s"
 
+// FixerAPIError is an error string returned by fixer api
 type FixerAPIError string
 
+// FixerAPIRates is a map of current exchange rates returned by fixer api
 type FixerAPIRates map[string]float64
 
+// FixerAPIResponse is a structure returned by fixer api (it's either error or base,date,rates)
 type FixerAPIResponse struct {
+	// Error - error string returned by fixer api
 	Error FixerAPIError `json:"error"`
+	// Base - base currency string returned by fixer api
 	Base  string        `json:"base"`
+	// Date - date on which request for exchange rates was made
 	Date  string        `json:"date"`
+	// Rates - current exchange rates returned by fixer api
 	Rates FixerAPIRates `json:"rates"`
 }
 
+// FixerIOProvider represents provider used to convert exchange rates based on Fixer.io service
 type FixerIOProvider struct {
 	url string
 }
 
+// Name returns name of this provider
 func (f FixerIOProvider) Name() string {
 	return FixerIO
 }
 
+// Convert - takes the amount in one currency and converts it to other currencies
 func (f FixerIOProvider) Convert(amount float64, currency string) (*ConverterResponse, error) {
-	log.Printf("FixerIO - converting %.2f %s", amount, currency)
+	log.Printf("FixerIO provider - converting %.2f %s", amount, currency)
 
 	rates, err := f.getRates(currency)
 	if err != nil {
@@ -53,6 +63,7 @@ func (f FixerIOProvider) Convert(amount float64, currency string) (*ConverterRes
 	return &ConverterResponse{Amount: amount, Currency: currency, Converted: converted}, nil
 }
 
+// Queries Fixer.io api and returns current exchange rates for currencies
 func (f FixerIOProvider) getRates(currency string) (FixerAPIRates, error) {
 	fixerAPIResponse := new(FixerAPIResponse)
 	err := common.GetJson(fmt.Sprintf(f.url, currency), &fixerAPIResponse)
@@ -69,14 +80,16 @@ func (f FixerIOProvider) getRates(currency string) (FixerAPIRates, error) {
 	return fixerAPIResponse.Rates, nil
 }
 
-func (f FixerIOProvider) convert(rates FixerAPIRates, amount float64) convertedRates {
+// Does the actual conversion based on rates map and amount of currency
+func (f FixerIOProvider) convert(rates FixerAPIRates, amount float64) ConvertedRates {
 	for cur, rate := range rates {
 		rates[cur] = common.Round((rate * amount), 2)
 	}
 
-	return convertedRates(rates)
+	return ConvertedRates(rates)
 }
 
+// NewFixerIOProvider returns initialized fixer io provider object
 func NewFixerIOProvider() FixerIOProvider {
-	return FixerIOProvider{url: apiUrl}
+	return FixerIOProvider{url: FixerIOApiUrl}
 }

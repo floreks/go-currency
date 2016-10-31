@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/floreks/go-currency.svg?branch=master)](https://travis-ci.org/floreks/go-currency) [![Go Report Card](https://goreportcard.com/badge/github.com/floreks/go-currency)](https://goreportcard.com/report/github.com/floreks/go-currency)
 
-go-currency is a currency exchange rate converter service written in Go.
+go-currency is a currency exchange rate converter service written in Go. By default uses [Fixer.io](http://fixer.io/) as exchange rate provider.
 
 # Online version (heroku)
 
@@ -61,6 +61,15 @@ curl -H "Accept: application/xml, */*" "http://localhost:8080/convert?amount=200
 Exchange rates for 200 SEK
 ```
 curl "http://localhost:8080/convert?amount=200&currency=SEK"
+```
+
+
+### Offline provider
+
+Additionally if `Fixer.io` is offline we can fallback to local provider that uses exchange rates from `31.10.2016`.
+
+```
+curl "http://localhost:8080/convert?amount=200&currency=SEK&provider=local"
 ```
 
 # Running tests

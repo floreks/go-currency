@@ -14,6 +14,7 @@ package common
 
 import "math"
 
+// Round is used to round floating point numbers with given precision. Rounding up from '.5'
 func Round(val float64, places int) (newVal float64) {
 	var round float64
 	roundOn := .5

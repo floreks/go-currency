@@ -23,10 +23,10 @@ const (
 	Local   = "local"
 )
 
-type convertedRates map[string]float64
+type ConvertedRates map[string]float64
 
 // MarshalXML - marshals convertedRates map into XML
-func (c convertedRates) MarshalXML(enc *xml.Encoder, startElem xml.StartElement) error {
+func (c ConvertedRates) MarshalXML(enc *xml.Encoder, startElem xml.StartElement) error {
 	tokens := []xml.Token{startElem}
 
 	for key, value := range c {
@@ -52,13 +52,13 @@ func (c convertedRates) MarshalXML(enc *xml.Encoder, startElem xml.StartElement)
 }
 
 type ConverterResponse struct {
-	XMLName xml.Name `json:"-" xml:"ConverterResponse"`
+	XMLName   xml.Name `json:"-" xml:"ConverterResponse"`
 
-	Amount float64 `json:"amount" xml:"amount"`
+	Amount    float64 `json:"amount" xml:"amount"`
 
-	Currency string `json:"currency" xml:"currency"`
+	Currency  string `json:"currency" xml:"currency"`
 
-	Converted convertedRates `json:"converted" xml:"converted"`
+	Converted ConvertedRates `json:"converted" xml:"converted"`
 }
 
 type ConverterProvider interface {
